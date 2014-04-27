@@ -1,0 +1,36 @@
+{
+  "name": "signal",
+  "version": "0.0.0",
+  "description": "webrtc signalling server",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bredele/signal.git"
+  },
+  "keywords": [
+    "webrtc",
+    "peer",
+    "data",
+    "chanel",
+    "handshake"
+  ],
+  "author": "Olivier Wietrich <olivier.wietrich@gmail.com> (http://github.com/bredele)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bredele/signal/issues"
+  },
+  "homepage": "https://github.com/bredele/signal",
+  "dependencies": {
+    "socket.io": "^0.9.16"
+  },
+  "devDependencies": {
+    "node-static": "^0.7.3",
+    "express": "^4.1.0"
+  }
+}

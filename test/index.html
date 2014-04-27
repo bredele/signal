@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>signal</title>
+</head>
+<body>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/app/build.js"></script>
+	<script>
+	  var peer = require('peer');
+	  var channel = require('channel');
+	  var signal = require('signal');
+
+	  var chat = peer();
+
+	  chat.on('message', function(msg) {
+	  	console.log('message received', msg);
+	  });
+
+	  chat.use(channel('coucou'));
+	  chat.use(signal('room'));
+	</script>
+</body>
+</html>
