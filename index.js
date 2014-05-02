@@ -3,7 +3,7 @@
  * Signal plugin.
  *
  * Connect two remote peer through
- * socket.io.
+ * socket.io (no ice trickle).
  *
  * Examples:
  *
@@ -24,43 +24,27 @@ module.exports = function signal(room, address) {
   var socket = io.connect(address);
 
   return function(peer) {
+    var type = 'slave';
     peer.create();
-
-    // set ice candidate
-    
-    socket.on('candidate', function(candidate) {
-      peer.ice(candidate);
-    });
-
-    // send ice candidate
-    
-    peer.on('candidate', function(candidate) {
-      socket.emit('candidate', candidate);
-    });
-
-    // get answer from slave
     
     socket.on('slave offer', function(offer) {
       peer.remote(offer);
     });
 
 
-    // get offer from master
-    
     socket.on('master offer', function(offer) {
       peer.remote(offer);
-      peer.answer(function(token) {
-        peer.local(token);
-        socket.emit('slave offer', token);
-      });
+      peer.answer();
     });
 
-    // slave is connected
+    peer.once('ready', function() {
+      socket.emit(type + ' offer', peer.connection.localDescription);
+    });
+
     
     socket.on('slave', function() {
-      peer.offer(function(offer) {
-        socket.emit('master offer', offer);
-      });
+      type = 'master';
+      peer.offer();
     });
 
     // NOTE: can we create an offer even before the handshake?
