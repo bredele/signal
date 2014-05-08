@@ -4,9 +4,12 @@
   "description": "peer plugin to create a remote peer to peer connection.",
   "version": "0.0.2",
   "keywords": [],
-  "dependencies": {},
+  "dependencies": {
+    "bredele/trace": "*"
+  },
   "development": {
     "bredele/peer": "*",
+    "bredele/debug" : "*",
     "bredele/channel": "~0.0.1"
   },
   "license": "MIT",

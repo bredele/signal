@@ -5,9 +5,9 @@
 	<title>signal</title>
 </head>
 <body>
+	<a href="http://github.com/bredele/peer" target="_blank">peer chat:</a>
 	<input type="text">
 	<ul>
-		
 	</ul>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/app/build.js"></script>
@@ -15,6 +15,7 @@
 	  var peer = require('peer');
 	  var channel = require('channel');
 	  var signal = require('signal');
+	  require('debug')();
 
 	  var chat = peer({'iceServers': [{
 	  	'url': 'stun:stun.l.google.com:19302'

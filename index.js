@@ -1,5 +1,13 @@
 
 /**
+ * Modules dependencies.
+ * @api private
+ */
+
+var trace = require('trace')('signal');
+
+
+/**
  * Signal plugin.
  *
  * Connect two remote peer through
@@ -28,22 +36,24 @@ module.exports = function signal(room, address) {
     peer.create();
     
     socket.on('slave offer', function(offer) {
+      trace('receive answer');
       peer.remote(offer);
     });
 
-
     socket.on('master offer', function(offer) {
+      trace('receive offer');
       peer.remote(offer);
       peer.answer();
     });
 
     peer.once('ready', function() {
+      trace('send local session description');
       socket.emit(type + ' offer', peer.connection.localDescription);
     });
 
-    
     socket.on('slave', function() {
       type = 'master';
+      trace('set peer as ' + type);
       peer.offer();
     });
 
